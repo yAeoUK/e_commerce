@@ -4,7 +4,7 @@ import 'package:flutter_ddd/presentation/widget/note/remove_dialog.dart';
 class NoteRemoveButton extends StatelessWidget {
   final String noteId;
 
-  const NoteRemoveButton({@required this.noteId});
+  const NoteRemoveButton({required this.noteId});
 
   @override
   Widget build(BuildContext context) {

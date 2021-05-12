@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class ErrorDialog extends StatelessWidget {
   const ErrorDialog({
-    @required BuildContext context,
-    @required this.message,
+    required BuildContext context,
+    required this.message,
     this.onConfirm,
   }) : _context = context;
 
   final BuildContext _context;
   final String message;
-  final VoidCallback onConfirm;
+  final VoidCallback? onConfirm;
 
   @override
   Widget build(BuildContext context) {

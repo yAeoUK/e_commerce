@@ -7,9 +7,9 @@ class CategoryDropdown extends StatefulWidget {
   final Function(CategoryDto) onChanged;
 
   const CategoryDropdown({
-    @required this.list,
-    @required this.value,
-    @required this.onChanged,
+    required this.list,
+    required this.value,
+    required this.onChanged,
   });
 
   @override
@@ -17,7 +17,7 @@ class CategoryDropdown extends StatefulWidget {
 }
 
 class _CategoryDropdownState extends State<CategoryDropdown> {
-  CategoryDto _value;
+  late CategoryDto _value;
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +41,8 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
               )
               .toList(),
           onChanged: (category) {
-            setState(() => _value = category);
-            widget.onChanged(category);
+            setState(() => _value = category!);
+            widget.onChanged(category!);
           },
         ),
       ),

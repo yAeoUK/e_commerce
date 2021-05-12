@@ -7,21 +7,21 @@ class NoteNotifier with ChangeNotifier {
   final NoteAppService _app;
   final String _categoryId;
 
-  NoteNotifier({@required NoteAppService app, @required String categoryId})
+  NoteNotifier({required NoteAppService app, required String categoryId})
       : _app = app,
         _categoryId = categoryId {
     _updateList();
   }
 
-  List<NoteSummaryDto> _list;
+  List<NoteSummaryDto>? _list;
 
-  List<NoteSummaryDto> get list =>
-      _list == null ? null : List.unmodifiable(_list);
+  List<NoteSummaryDto>? get list =>
+      _list == null ? null : List.unmodifiable(_list!);
 
   Future<void> saveNote({
-    @required String title,
-    @required String body,
-    @required String categoryId,
+    required String title,
+    required String body,
+    required String categoryId,
   }) async {
     await _app.saveNote(
       title: title,
@@ -32,10 +32,10 @@ class NoteNotifier with ChangeNotifier {
   }
 
   Future<void> updateNote({
-    @required String id,
-    @required String title,
-    @required String body,
-    @required String categoryId,
+    required String id,
+    required String title,
+    required String body,
+    required String categoryId,
   }) async {
     await _app.updateNote(
       id: id,
@@ -51,7 +51,7 @@ class NoteNotifier with ChangeNotifier {
     _updateList();
   }
 
-  Future<NoteDto> getNote(String id) async {
+  Future<NoteDto?> getNote(String id) async {
     return await _app.getNote(id);
   }
 

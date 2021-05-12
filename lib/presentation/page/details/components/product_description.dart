@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/parameters.dart';
+import 'package:flutter_ddd/common/size_config.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../domain/product/Product.dart';
-import '../../../../parameters.dart';
-import '../../../../size_config.dart';
 
 class ProductDescription extends StatelessWidget {
   const ProductDescription({
-    Key key,
-    @required this.product,
-    this.pressOnSeeMore,
+    Key? key,
+    required this.product,
+    required this.pressOnSeeMore,
   }) : super(key: key);
 
   final Product product;
@@ -71,7 +71,7 @@ class ProductDescription extends StatelessWidget {
               children: [
                 Text(
                   //"See More Detail",
-                  AppLocalizations.of(context).seeMoreDetails,
+                  AppLocalizations.of(context)!.seeMoreDetails,
                   style: const TextStyle(
                       fontWeight: FontWeight.w600, color: kPrimaryColor),
                 ),

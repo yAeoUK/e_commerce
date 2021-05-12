@@ -23,6 +23,7 @@
     "confirmAgreeTermCondition":"عند الاستمرار أنت تقر على موافقت على شروطنا واتفاقيتنا",
     "passwordsDontMatch":"كلمتا السر غير متطابقتين",
     "confirmPassword":"تأكيد كلمة السر",
+    "pleaseConfirmPassword":"يرجى تأكيد كلمة السر",
     "reenterYourPassword":"أعد إدخال كلمة السر",
     "enterEmailToRecoverPassword":"يرجى إدخال بريدك الإلكتروني وسنرسل لك رسالة للعودة إلى حسابك",
     "loginSuccess":"تم تسجيل الدخول بنجاح",

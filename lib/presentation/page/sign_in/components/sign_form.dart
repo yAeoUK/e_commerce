@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ddd/domain/result/result.dart';
-import 'package:flutter_ddd/domain/user/user.dart';
-import 'package:flutter_ddd/domain/user/user_repository_base.dart';
-import 'package:flutter_ddd/domain/user/value/password/password.dart';
-import 'package:flutter_ddd/domain/user/value/username/username.dart';
-import 'package:flutter_ddd/infrastructure/db_helper.dart';
+import 'package:flutter_ddd/common/size_config.dart';
+import 'package:flutter_ddd/presentation/page/sign_in/sign_in_notifier.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../../../components/custom_surfix_icon.dart';
 import '../../../../components/default_button.dart';
 import '../../../../components/form_error.dart';
-import '../../../../helper/keyboard.dart';
-import '../../../../parameters.dart';
-import '../../../../size_config.dart';
 import '../../forgot_password/forgot_password_screen.dart';
-import '../sign_in_screen.dart';
 
 class SignForm extends StatefulWidget {
   @override
@@ -23,29 +15,17 @@ class SignForm extends StatefulWidget {
 
 class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
-  String email;
-  String password;
+  late String email;
+  late String password;
   bool remember = false;
-  final List<String> errors = [];
-  bool loading=false;
-  String apiMessage='';
-
-  void addError({String error}) {
-    if (!errors.contains(error))
-      setState(() {
-        errors.add(error);
-      });
-  }
-
-  void removeError({String error}) {
-    if (errors.contains(error))
-      setState(() {
-        errors.remove(error);
-      });
-  }
+  List<String> errors = [];
 
   @override
   Widget build(BuildContext context) {
+    final String error=context.select((SignInChangeNotifier value) => value.getError());
+    errors=context.select((SignInChangeNotifier value) => value.getErrors());
+    email=context.select((SignInChangeNotifier value) => value.getEmail());
+    password=context.select((SignInChangeNotifier value) => value.getPassword());
     return Form(
       key: _formKey,
       child: Column(
@@ -66,14 +46,14 @@ class _SignFormState extends State<SignForm> {
               //   },
               // ),
               // //Text("Remember me"),
-              // Text(AppLocalizations.of(context).rememberMe),
+              // Text(AppLocalizations.of(context)!.rememberMe),
               const Spacer(),
               GestureDetector(
                 onTap: () => Navigator.pushNamed(
                     context, ForgotPasswordScreen.routeName),
                 child: Text(
                   //"Forgot Password",
-                  AppLocalizations.of(context).forgotPassword,
+                  AppLocalizations.of(context)!.forgotPassword,
                   style: const TextStyle(decoration: TextDecoration.underline),
                 ),
               )
@@ -83,41 +63,19 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             //text: "Continue",
-            text:AppLocalizations.of(context).conTinue,
-            press: () async{
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
-                // if all are valid then go to success screen
-                KeyboardUtil.hideKeyboard(context);
-                final result=await context.read<UserRepositoryBase>().checkUser(
-                  Username(email),
-                  Password(password),
-                  context
-                );
-                result.fold(
-                  (Result resul){
-                    setState(() {
-                      apiMessage=resul.message.value;
-                      context.read<DbHelper>().execute(resul.sql);
-                    });
-                  },
-                  (User user){
-                    context.read<UserRepositoryBase>().setUser(user);
-                    //Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-                    Navigator.pop(context,SignInScreen.signInSucceed);
-                  }
-                );
-              }
+            text:AppLocalizations.of(context)!.conTinue,
+            press: () {
+              context.read<SignInChangeNotifier>().validateForm(_formKey,context);
             },
           ),
           SizedBox(height: getProportionateScreenHeight(10)),
           Visibility(
-            visible: loading,
+            visible: context.select((SignInChangeNotifier value) => value.getLoading()),
             child: const CircularProgressIndicator(),
           ),
           Visibility(
-            visible: apiMessage.isNotEmpty,
-            child: Text(apiMessage),
+            visible: error.isNotEmpty,
+            child: Text(error),
           )
         ],
       ),
@@ -127,28 +85,17 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => password = newValue,
+      onSaved: (newValue) => context.read<SignInChangeNotifier>().setPassword(password: newValue),
       onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: AppLocalizations.of(context).pleaseEnterYourPassword);
-        } else if (value.length >= 8) {
-          removeError(error: AppLocalizations.of(context).passwordTooShort);
-        }
-        return null;
+        context.read<SignInChangeNotifier>().onPasswordChanged(value,context);
+        //return '';
       },
       validator: (value) {
-        if (value.isEmpty) {
-          addError(error: AppLocalizations.of(context).pleaseEnterYourPassword);
-          return '';
-        } else if (value.length < 8) {
-          addError(error: AppLocalizations.of(context).passwordTooShort);
-          return '';
-        }
-        return null;
+        return context.read<SignInChangeNotifier>().validatePassword(value!,context);
       },
       decoration: InputDecoration(
-        labelText: AppLocalizations.of(context).password,//"Password",
-        hintText: AppLocalizations.of(context).enterYourPassword,//"Enter your password",
+        labelText: AppLocalizations.of(context)!.password,//"Password",
+        hintText: AppLocalizations.of(context)!.enterYourPassword,//"Enter your password",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -160,28 +107,16 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => context.read<SignInChangeNotifier>().setEmail(email: newValue!),
       onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: AppLocalizations.of(context).pleaseEnterEmail);
-        } else if (emailValidatorRegExp.hasMatch(value)) {
-          removeError(error: AppLocalizations.of(context).pleaseEnterValidEmail);
-        }
-        return null;
+        context.read<SignInChangeNotifier>().onEmailChanged(value,context);
       },
       validator: (value) {
-        if (value.isEmpty) {
-          addError(error: AppLocalizations.of(context).pleaseEnterEmail);
-          return '';
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
-          addError(error: AppLocalizations.of(context).pleaseEnterValidEmail);
-          return '';
-        }
-        return null;
+        return context.read<SignInChangeNotifier>().validateEmail(value!,context);
       },
       decoration: InputDecoration(
-        labelText: AppLocalizations.of(context).email,//"Email",
-        hintText: AppLocalizations.of(context).enterYourEmail,//"Enter your email",
+        labelText: AppLocalizations.of(context)!.email,//"Email",
+        hintText: AppLocalizations.of(context)!.enterYourEmail,//"Enter your email",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

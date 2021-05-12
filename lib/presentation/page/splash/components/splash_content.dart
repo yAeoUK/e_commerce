@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/parameters.dart';
+import 'package:flutter_ddd/common/size_config.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../../../parameters.dart';
-import '../../../../size_config.dart';
-
 
 class SplashContent extends StatelessWidget {
   const SplashContent({
-    Key key,
-    this.text,
-    this.image,
+   Key?key,
+    required this.text,
+    required this.image,
   }) : super(key: key);
   final String text, image;
 
@@ -19,7 +17,7 @@ class SplashContent extends StatelessWidget {
       children: <Widget>[
         const Spacer(),
         Text(
-          AppLocalizations.of(context).appName,
+          AppLocalizations.of(context)!.appName,
           style: TextStyle(
             fontSize: getProportionateScreenWidth(36),
             color: kPrimaryColor,

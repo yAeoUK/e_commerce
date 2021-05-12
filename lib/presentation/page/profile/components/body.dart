@@ -14,27 +14,27 @@ class Body extends StatelessWidget {
           const ProfilePic(),
           const SizedBox(height: 20),
           ProfileMenu(
-            text: AppLocalizations.of(context).myAccount,//"My Account",
+            text: AppLocalizations.of(context)!.myAccount,//"My Account",
             icon: 'assets/icons/User Icon.svg',
             press: () {},
           ),
           ProfileMenu(
-            text: AppLocalizations.of(context).notifications,//"Notifications",
+            text: AppLocalizations.of(context)!.notifications,//"Notifications",
             icon: 'assets/icons/Bell.svg',
             press: () {},
           ),
           ProfileMenu(
-            text: AppLocalizations.of(context).settings,//"Settings",
+            text: AppLocalizations.of(context)!.settings,//"Settings",
             icon: 'assets/icons/Settings.svg',
             press: () {},
           ),
           ProfileMenu(
-            text: AppLocalizations.of(context).helpCenter,//"Help Center",
+            text: AppLocalizations.of(context)!.helpCenter,//"Help Center",
             icon: 'assets/icons/Question mark.svg',
             press: () {},
           ),
           ProfileMenu(
-            text: AppLocalizations.of(context).logOut,//"Log Out",
+            text: AppLocalizations.of(context)!.logOut,//"Log Out",
             icon: 'assets/icons/Log out.svg',
             press: () {},
           ),

@@ -16,16 +16,16 @@ class NoteAppService {
   final NoteService _service;
 
   NoteAppService({
-    @required NoteFactoryBase factory,
-    @required NoteRepositoryBase repository,
+    required NoteFactoryBase factory,
+    required NoteRepositoryBase repository,
   })  : _factory = factory,
         _repository = repository,
         _service = NoteService(repository: repository);
 
   Future<void> saveNote({
-    @required String title,
-    @required String body,
-    @required String categoryId,
+    required String title,
+    required String body,
+    required String categoryId,
   }) async {
     final note = _factory.create(
       title: NoteTitle(title),
@@ -46,10 +46,10 @@ class NoteAppService {
   }
 
   Future<void> updateNote({
-    @required String id,
-    @required String title,
-    @required String body,
-    @required String categoryId,
+    required String id,
+    required String title,
+    required String body,
+    required String categoryId,
   }) async {
     final targetId = NoteId(id);
 
@@ -97,7 +97,7 @@ class NoteAppService {
     });
   }
 
-  Future<NoteDto> getNote(String id) async {
+  Future<NoteDto?> getNote(String id) async {
     final targetId = NoteId(id);
     final target = await _repository.find(targetId);
 

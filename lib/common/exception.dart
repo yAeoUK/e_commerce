@@ -36,48 +36,48 @@ class GenericException implements Exception {
 }
 
 class NotFoundException extends GenericException {
-  NotFoundException({@required ExceptionCode code, @required String target})
+  NotFoundException({required ExceptionCode code, required String target})
       : assert(code != null),
         assert(target != null && target.isNotEmpty),
         super(code: code, info: target);
 }
 
 class NotUniqueException extends GenericException {
-  NotUniqueException({@required ExceptionCode code, @required String value})
+  NotUniqueException({required ExceptionCode code, required String value})
       : assert(code != null),
         assert(value != null && value.isNotEmpty),
         super(code: code, info: value);
 }
 
 class NotPositiveException extends GenericException {
-  NotPositiveException({@required ExceptionCode code, @required String value})
+  NotPositiveException({required ExceptionCode code, required String value})
       : assert(code != null),
         assert(value != null && int.parse(value)>0),
         super(code: code, info: value);
 }
 
 class NullEmptyException extends GenericException {
-  NullEmptyException({@required ExceptionCode code})
+  NullEmptyException({required ExceptionCode code})
       : assert(code != null),
         super(code: code);
 }
 
 class LengthException extends GenericException {
-  LengthException({@required ExceptionCode code, @required int max})
+  LengthException({required ExceptionCode code, required int max})
       : assert(code != null),
         assert(max != null && max > 0),
         super(code: code, info: max);
 }
 
 class MinimumLengthException extends GenericException {
-  MinimumLengthException({@required ExceptionCode code, @required int min})
+  MinimumLengthException({required ExceptionCode code, required int min})
       : assert(code != null),
         assert(min != null && min > 0),
         super(code: code, info: min);
 }
 
 class RemovalException extends GenericException {
-  RemovalException({@required ExceptionCode code})
+  RemovalException({required ExceptionCode code})
       : assert(code != null),
         super(code: code);
 }

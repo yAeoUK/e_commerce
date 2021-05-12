@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/parameters.dart';
+import 'package:flutter_ddd/common/size_config.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../components/social_card.dart';
-import '../../../../parameters.dart';
-import '../../../../size_config.dart';
 import 'sign_up_form.dart';
 
 class Body extends StatelessWidget {
@@ -18,17 +18,17 @@ class Body extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
-                Text(AppLocalizations.of(context).registerAccount, style: headingStyle),
+                SizedBox(height: SizeConfig.screenHeight!* 0.04), // 4%
+                Text(AppLocalizations.of(context)!.registerAccount, style: headingStyle),
                 //Text("Register Account", style: headingStyle),
                 Text(
                   //"Complete your details or continue \nwith social media",
-                  AppLocalizations.of(context).completeDetailsOrSocialMedia,
+                  AppLocalizations.of(context)!.completeDetailsOrSocialMedia,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
+                SizedBox(height: SizeConfig.screenHeight!* 0.08),
                 SignUpForm(),
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
+                SizedBox(height: SizeConfig.screenHeight!* 0.08),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -40,16 +40,16 @@ class Body extends StatelessWidget {
                       icon: 'assets/icons/facebook-2.svg',
                       press: () {},
                     ),
-                    SocialCard(
-                      icon: 'assets/icons/twitter.svg',
-                      press: () {},
-                    ),
+                    // SocialCard(
+                    //   icon: 'assets/icons/twitter.svg',
+                    //   press: () {},
+                    // ),
                   ],
                 ),
                 SizedBox(height: getProportionateScreenHeight(20)),
                 Text(
                   //'By continuing your confirm that you agree \nwith our Term and Condition',
-                  AppLocalizations.of(context).confirmAgreeTermCondition,
+                  AppLocalizations.of(context)!.confirmAgreeTermCondition,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.caption,
                 )

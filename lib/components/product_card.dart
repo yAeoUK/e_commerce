@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/parameters.dart';
+import 'package:flutter_ddd/common/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../domain/product/Product.dart';
-import '../parameters.dart';
 import '../presentation/page/details/details_screen.dart';
-import '../size_config.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
-    Key key,
+    Key? key,
     this.width = 140,
     this.aspectRetio = 1.02,
-    @required this.product,
+    required this.product,
   }) : super(key: key);
 
   final double width, aspectRetio;

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/size_config.dart';
 import '../../../../presentation/page/cart/cart_screen.dart';
-
-import '../../../../size_config.dart';
 import 'icon_btn_with_counter.dart';
 import 'search_field.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({
-    Key key,
+   Key? key,
   }) : super(key: key);
 
   @override

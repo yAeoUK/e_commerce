@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../size_config.dart';
-
-class CustomAppBar extends PreferredSize {
+class CustomAppBar extends AppBar {
   final double rating;
 
-  const CustomAppBar({@required this.rating});
+  CustomAppBar({required this.rating});
 
-  @override
   // AppBar().preferredSize.height provide us the height that appy on our app bar
   Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return PreferredSize(
+        child: SafeArea(
       child: Padding(
         padding:
-            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+        EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
         child: Row(
           children: [
             SizedBox(
@@ -60,6 +59,7 @@ class CustomAppBar extends PreferredSize {
           ],
         ),
       ),
-    );
+    ),
+        preferredSize: preferredSize);
   }
 }

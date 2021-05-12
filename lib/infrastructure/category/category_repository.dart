@@ -1,13 +1,12 @@
+import 'package:flutter_ddd/helper/db_helper.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter_ddd/domain/category/category_repository_base.dart';
-import 'package:flutter_ddd/infrastructure/db_helper.dart';
-
 export 'package:flutter_ddd/domain/category/category_repository_base.dart';
 
 class CategoryRepository implements CategoryRepositoryBase {
   final DbHelper _dbHelper;
 
-  const CategoryRepository({@required DbHelper dbHelper}) : _dbHelper = dbHelper;
+  const CategoryRepository({required DbHelper dbHelper}) : _dbHelper = dbHelper;
 
   Category toCategory(Map<String, dynamic> data) {
     final id = data['id'].toString();
@@ -25,7 +24,7 @@ class CategoryRepository implements CategoryRepositoryBase {
   }
 
   @override
-  Future<Category> find(CategoryId id) async {
+  Future<Category?> find(CategoryId id) async {
     final list = await _dbHelper.rawQuery(
       'SELECT * FROM categories WHERE id = ?',
       <String>[id.value],
@@ -35,7 +34,7 @@ class CategoryRepository implements CategoryRepositoryBase {
   }
 
   @override
-  Future<Category> findByName(CategoryName name) async {
+  Future<Category?> findByName(CategoryName name) async {
     final list = await _dbHelper.rawQuery(
       'SELECT * FROM categories WHERE name = ?',
       <String>[name.value],

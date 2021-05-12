@@ -13,20 +13,20 @@ class Note {
   final NoteId id;
   NoteTitle _title;
   NoteBody _body;
-  CategoryId _categoryId;
+  CategoryId? _categoryId;
 
   Note({
-    @required this.id,
-    @required NoteTitle title,
-    @required NoteBody body,
-    @required CategoryId categoryId,
+    required this.id,
+    required NoteTitle title,
+    required NoteBody body,
+     CategoryId? categoryId,
   })  : _title = title,
         _body = body,
         _categoryId = categoryId;
 
   NoteTitle get title => _title;
   NoteBody get body => _body;
-  CategoryId get categoryId => _categoryId;
+  CategoryId? get categoryId => _categoryId;
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes

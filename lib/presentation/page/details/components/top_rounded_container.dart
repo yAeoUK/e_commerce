@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-
-import '../../../../size_config.dart';
+import 'package:flutter_ddd/common/size_config.dart';
 
 class TopRoundedContainer extends StatelessWidget {
   const TopRoundedContainer({
-    Key key,
-    @required this.color,
-    @required this.child,
+    Key? key,
+    required this.color,
+    required this.child,
   }) : super(key: key);
 
   final Color color;

@@ -9,8 +9,8 @@ class NoteRemoveDialog extends StatelessWidget {
   final String noteId;
 
   const NoteRemoveDialog({
-    @required BuildContext context,
-    @required this.noteId,
+    required BuildContext context,
+    required this.noteId,
   }) : _context = context;
 
   @override

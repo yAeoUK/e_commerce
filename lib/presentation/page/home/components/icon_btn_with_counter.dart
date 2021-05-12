@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/parameters.dart';
+import 'package:flutter_ddd/common/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../../../parameters.dart';
-import '../../../../size_config.dart';
 
 class IconBtnWithCounter extends StatelessWidget {
   const IconBtnWithCounter({
-    Key key,
-    @required this.svgSrc,
+   Key?key,
+    required this.svgSrc,
     this.numOfitem = 0,
-    @required this.press,
+    required this.press,
   }) : super(key: key);
 
   final String svgSrc;

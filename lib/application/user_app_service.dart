@@ -11,11 +11,11 @@ class UserAppService {
   //final UserService _service;
 
   const UserAppService({
-    @required UserRepositoryBase repository,
+    required UserRepositoryBase repository,
   })  : _repository = repository;
         //_service = UserService(repository: repository);
 
-  // Future<void> saveCategory({@required String name}) async {
+  // Future<void> saveCategory({required String name}) async {
   //   final category = _factory.create(name: name);
 
   //   await _repository.transaction<void>(() async {
@@ -31,8 +31,8 @@ class UserAppService {
   // }
 
   // Future<void> updateCategory({
-  //   @required String id,
-  //   @required String name,
+  //   required String id,
+  //   required String name,
   // }) async {
   //   final targetId = CategoryId(id);
 

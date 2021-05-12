@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/parameters.dart';
+import 'package:flutter_ddd/common/size_config.dart';
 import '../../../../components/rounded_icon_btn.dart';
 import '../../../../domain/product/Product.dart';
 
-import '../../../../parameters.dart';
-import '../../../../size_config.dart';
-
 class ColorDots extends StatelessWidget {
   const ColorDots({
-    Key key,
-    @required this.product,
+    Key? key,
+    required this.product,
   }) : super(key: key);
 
   final Product product;
@@ -48,8 +47,8 @@ class ColorDots extends StatelessWidget {
 
 class ColorDot extends StatelessWidget {
   const ColorDot({
-    Key key,
-    @required this.color,
+    Key? key,
+    required this.color,
     this.isSelected = false,
   }) : super(key: key);
 

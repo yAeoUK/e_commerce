@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/size_config.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../components/default_button.dart';
 import '../../../../domain/product/Product.dart';
-import '../../../../size_config.dart';
 import 'color_dots.dart';
 import 'product_description.dart';
 import 'product_images.dart';
@@ -12,7 +12,7 @@ import 'top_rounded_container.dart';
 class Body extends StatelessWidget {
   final Product product;
 
-  const Body({Key key, @required this.product}) : super(key: key);
+  const Body({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +36,13 @@ class Body extends StatelessWidget {
                       color: Colors.white,
                       child: Padding(
                         padding: EdgeInsets.only(
-                          left: SizeConfig.screenWidth * 0.15,
-                          right: SizeConfig.screenWidth * 0.15,
+                          left: SizeConfig.screenWidth! * 0.15,
+                          right: SizeConfig.screenWidth! * 0.15,
                           bottom: getProportionateScreenWidth(40),
                           top: getProportionateScreenWidth(15),
                         ),
                         child: DefaultButton(
-                          text: AppLocalizations.of(context).addToCart,//"Add To Cart",
+                          text: AppLocalizations.of(context)!.addToCart,//"Add To Cart",
                           press: () {},
                         ),
                       ),

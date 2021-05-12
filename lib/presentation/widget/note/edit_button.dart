@@ -8,8 +8,8 @@ class NoteEditButton extends StatelessWidget {
   final String noteId;
 
   const NoteEditButton({
-    @required this.category,
-    @required this.noteId,
+    required this.category,
+    required this.noteId,
   });
 
   @override
@@ -25,7 +25,7 @@ class NoteEditButton extends StatelessWidget {
           heading: 'Edit note',
           buttonLabel: 'SAVE',
           category: category,
-          onSave: ({title, body, categoryId}) async {
+          onSave: ({required title, required body, required categoryId}) async {
             await notifier.updateNote(
               id: noteId,
               title: title,
@@ -33,7 +33,7 @@ class NoteEditButton extends StatelessWidget {
               categoryId: categoryId,
             );
           },
-          initialTitle: note.title,
+          initialTitle: note!.title,
           initialBody: note.body,
         ).show();
       },

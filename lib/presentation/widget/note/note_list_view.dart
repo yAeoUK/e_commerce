@@ -8,7 +8,7 @@ import 'package:flutter_ddd/presentation/widget/note/remove_button.dart';
 class NoteListView extends StatelessWidget {
   final CategoryDto category;
 
-  const NoteListView({@required this.category});
+  const NoteListView({required this.category});
 
   @override
   Widget build(BuildContext context) {

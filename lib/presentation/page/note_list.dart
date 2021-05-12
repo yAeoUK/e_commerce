@@ -12,7 +12,7 @@ import 'package:flutter_ddd/presentation/widget/note/note_list_view.dart';
 class NoteListPage extends StatelessWidget {
   final CategoryDto category;
 
-  const NoteListPage({@required this.category});
+  const NoteListPage({required this.category});
 
   @override
   Widget build(BuildContext context) {

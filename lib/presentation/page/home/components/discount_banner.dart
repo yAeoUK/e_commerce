@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
-import '../../../../size_config.dart';
+import 'package:flutter_ddd/common/size_config.dart';
 
 class DiscountBanner extends StatelessWidget {
   const DiscountBanner({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

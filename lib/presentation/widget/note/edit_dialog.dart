@@ -8,9 +8,9 @@ import 'package:flutter_ddd/presentation/widget/note/dropdown.dart';
 export 'package:flutter_ddd/presentation/notifier/category_notifier.dart';
 
 typedef SaveCallback = Future<void> Function({
-  @required String title,
-  @required String body,
-  @required String categoryId,
+  required String title,
+  required String body,
+  required String categoryId,
 });
 
 class TitleEditingController = TextEditingController with Type;
@@ -26,13 +26,13 @@ class NoteEditDialog extends StatelessWidget {
   final BodyEditingController _bodyController;
 
   NoteEditDialog({
-    @required BuildContext context,
-    @required this.heading,
-    @required this.buttonLabel,
-    @required this.onSave,
-    @required this.category,
-    String initialTitle,
-    String initialBody,
+    required BuildContext context,
+    required this.heading,
+    required this.buttonLabel,
+    required this.onSave,
+    required this.category,
+    String? initialTitle,
+    String? initialBody,
   })  : _context = context,
         _titleController = context.read<TitleEditingController>()
           ..text = initialTitle ?? '',
@@ -53,7 +53,7 @@ class NoteEditDialog extends StatelessWidget {
           content: Column(
             children: <Widget>[
               CategoryDropdown(
-                list: categoryNotifier.list,
+                list: categoryNotifier.list!,
                 value: selectedCategory,
                 onChanged: (category) => selectedCategory = category,
               ),

@@ -4,7 +4,7 @@ import 'package:flutter_ddd/domain/category/category_repository_base.dart';
 export 'package:flutter_ddd/domain/category/category_repository_base.dart';
 
 class CategoryRepository implements CategoryRepositoryBase {
-  final _data = <CategoryId, Category>{};
+  final _data = <CategoryId, Category?>{};
 
   @override
   Future<T> transaction<T>(Future<T> Function() f) async {
@@ -12,7 +12,7 @@ class CategoryRepository implements CategoryRepositoryBase {
   }
 
   @override
-  Future<Category> find(CategoryId id) {
+  Future<Category>? find(CategoryId id) {
     final category = _data[id];
 
     if (category == null) {
@@ -28,9 +28,9 @@ class CategoryRepository implements CategoryRepositoryBase {
   }
 
   @override
-  Future<Category> findByName(CategoryName name) {
-    final category = _data.values.firstWhere(
-      (category) => category.name == name,
+  Future<Category>? findByName(CategoryName name) {
+    final Category? category = _data.values.firstWhere(
+      (category) => category!.name == name,
       orElse: () => null,
     );
 
@@ -53,13 +53,13 @@ class CategoryRepository implements CategoryRepositoryBase {
   }
 
   @override
-  Future<void> save(Category category) {
+  Future<void>? save(Category category) {
     _data[category.id] = category;
     return null;
   }
 
   @override
-  Future<void> remove(Category category) {
+  Future<void>? remove(Category category) {
     _data.remove(category.id);
     return null;
   }

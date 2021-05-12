@@ -4,7 +4,7 @@ import 'package:flutter_ddd/domain/note/note_repository_base.dart';
 export 'package:flutter_ddd/domain/note/note_repository_base.dart';
 
 class NoteRepository implements NoteRepositoryBase {
-  final _data = <NoteId, Note>{};
+  final _data = <NoteId, Note?>{};
 
   @override
   Future<T> transaction<T>(Future<T> Function() f) async {
@@ -12,7 +12,7 @@ class NoteRepository implements NoteRepositoryBase {
   }
 
   @override
-  Future<Note> find(NoteId id) {
+  Future<Note>? find(NoteId id) {
     final note = _data[id];
 
     if (note == null) {
@@ -30,9 +30,9 @@ class NoteRepository implements NoteRepositoryBase {
   }
 
   @override
-  Future<Note> findByTitle(NoteTitle title) {
+  Future<Note>? findByTitle(NoteTitle title) {
     final note = _data.values.firstWhere(
-      (note) => note.title == title,
+      (note) => note!.title == title,
       orElse: () => null,
     );
 
@@ -53,9 +53,9 @@ class NoteRepository implements NoteRepositoryBase {
   @override
   Future<List<Note>> findByCategory(CategoryId categoryId) {
     final clonedNotes = _data.values
-        .where((note) => note.categoryId == categoryId)
+        .where((note) => note!.categoryId == categoryId)
         .map((note) => Note(
-              id: note.id,
+              id: note!.id,
               title: note.title,
               body: note.body,
               categoryId: categoryId,
@@ -68,19 +68,19 @@ class NoteRepository implements NoteRepositoryBase {
   @override
   Future<int> countByCategory(CategoryId categoryId) {
     final count =
-        _data.values.where((note) => note.categoryId == categoryId).length;
+        _data.values.where((note) => note!.categoryId == categoryId).length;
 
     return Future.value(count);
   }
 
   @override
-  Future<void> save(Note note) {
+  Future<void>? save(Note note) {
     _data[note.id] = note;
     return null;
   }
 
   @override
-  Future<void> remove(Note note) {
+  Future<void>? remove(Note note) {
     _data.remove(note.id);
     return null;
   }

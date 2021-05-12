@@ -6,7 +6,7 @@ import 'package:flutter_ddd/presentation/widget/note/edit_dialog.dart';
 class NoteAddButton extends StatelessWidget {
   final CategoryDto category;
 
-  const NoteAddButton({@required this.category});
+  const NoteAddButton({required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class NoteAddButton extends StatelessWidget {
         heading: 'New note',
         buttonLabel: 'SAVE',
         category: category,
-        onSave: ({title, body, categoryId}) async {
+        onSave: ({required title, required body, required categoryId}) async {
           await context.read<NoteNotifier>().saveNote(
                 title: title,
                 body: body,

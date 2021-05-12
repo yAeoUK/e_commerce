@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/size_config.dart';
+import 'package:flutter_ddd/presentation/page/sign_up/sign_up_notifier.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:provider/provider.dart';
 import '../../../../components/custom_surfix_icon.dart';
 import '../../../../components/default_button.dart';
 import '../../../../components/form_error.dart';
-import '../../../../parameters.dart';
-import '../../../../size_config.dart';
-import '../../complete_profile/complete_profile_screen.dart';
-
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -16,28 +14,19 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-  String email;
-  String password;
-  String conformPassword;
+  late String email;
+  late String password;
+  late String confirmPassword;
+  late String error;
   bool remember = false;
   final List<String> errors = [];
 
-  void addError({String error}) {
-    if (!errors.contains(error))
-      setState(() {
-        errors.add(error);
-      });
-  }
-
-  void removeError({String error}) {
-    if (errors.contains(error))
-      setState(() {
-        errors.remove(error);
-      });
-  }
-
   @override
   Widget build(BuildContext context) {
+    email=context.select((SignUpChangeNotifier value) => value.getEmail());
+    password=context.select((SignUpChangeNotifier value) => value.getPassword());
+    confirmPassword=context.select((SignUpChangeNotifier value) => value.getConfirmPassword());
+    error=context.select((SignUpChangeNotifier value) => value.getError());
     return Form(
       key: _formKey,
       child: Column(
@@ -51,15 +40,25 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             //text: "Continue",
-            text: AppLocalizations.of(context).conTinue,
+            text: AppLocalizations.of(context)!.conTinue,
             press: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
-                // if all are valid then go to success screen
-                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
-              }
+              context.read<SignUpChangeNotifier>().validateForm(_formKey, context);
+              // if (_formKey.currentState.validate()) {
+              //   _formKey.currentState.save();
+              //   // if all are valid then go to success screen
+              //   Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+              // }
             },
           ),
+          SizedBox(height: getProportionateScreenHeight(10)),
+          Visibility(
+            visible: context.select((SignUpChangeNotifier value) => value.getLoading()),
+            child: const CircularProgressIndicator(),
+          ),
+          Visibility(
+            visible: error.isNotEmpty,
+            child: Text(error),
+          )
         ],
       ),
     );
@@ -68,28 +67,16 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildConformPassFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => conformPassword = newValue,
+      onSaved: (newValue) => context.read<SignUpChangeNotifier>().setConfirmPassword(confirmPassword: newValue!),
       onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: AppLocalizations.of(context).pleaseEnterYourPassword);
-        } else if (value.isNotEmpty && password == conformPassword) {
-          removeError(error: AppLocalizations.of(context).passwordsDontMatch);
-        }
-        conformPassword = value;
+        context.read<SignUpChangeNotifier>().onConfirmPasswordChanged(value, context);
       },
       validator: (value) {
-        if (value.isEmpty) {
-          addError(error: AppLocalizations.of(context).pleaseEnterYourPassword);
-          return '';
-        } else if (password != value) {
-          addError(error: AppLocalizations.of(context).passwordsDontMatch);
-          return '';
-        }
-        return null;
+        return context.read<SignUpChangeNotifier>().validateConfirmPassword(value!,context);
       },
       decoration: InputDecoration(
-        labelText: AppLocalizations.of(context).confirmPassword,//"Confirm Password",
-        hintText: AppLocalizations.of(context).reenterYourPassword,//"Re-enter your password",
+        labelText: AppLocalizations.of(context)!.confirmPassword,//"Confirm Password",
+        hintText: AppLocalizations.of(context)!.reenterYourPassword,//"Re-enter your password",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -101,28 +88,16 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => password = newValue,
+      onSaved: (newValue) => context.read<SignUpChangeNotifier>().setPassword(password: newValue!),
       onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: AppLocalizations.of(context).pleaseEnterYourPassword);//kPassNullError);
-        } else if (value.length >= 8) {
-          removeError(error: AppLocalizations.of(context).passwordTooShort);//kShortPassError);
-        }
-        password = value;
+        context.read<SignUpChangeNotifier>().onPasswordChanged(value, context);
       },
       validator: (value) {
-        if (value.isEmpty) {
-          addError(error: AppLocalizations.of(context).pleaseEnterYourPassword);//kPassNullError);
-          return '';
-        } else if (value.length < 8) {
-          addError(error: AppLocalizations.of(context).passwordTooShort);//kShortPassError);
-          return '';
-        }
-        return null;
+        return context.read<SignUpChangeNotifier>().validatePassword(value!, context);
       },
       decoration: InputDecoration(
-        labelText: AppLocalizations.of(context).password,//"Password",
-        hintText: AppLocalizations.of(context).enterYourPassword,//"Enter your password",
+        labelText: AppLocalizations.of(context)!.password,//"Password",
+        hintText: AppLocalizations.of(context)!.enterYourPassword,//"Enter your password",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -134,28 +109,16 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => context.read<SignUpChangeNotifier>().setEmail(email: newValue!),
       onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: AppLocalizations.of(context).pleaseEnterEmail);//kEmailNullError);
-        } else if (emailValidatorRegExp.hasMatch(value)) {
-          removeError(error: AppLocalizations.of(context).pleaseEnterValidEmail);//kInvalidEmailError);
-        }
-        return null;
+        context.read<SignUpChangeNotifier>().onEmailChanged(value, context);
       },
       validator: (value) {
-        if (value.isEmpty) {
-          addError(error: AppLocalizations.of(context).pleaseEnterEmail);//kEmailNullError);
-          return '';
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
-          addError(error: AppLocalizations.of(context).pleaseEnterValidEmail);//kInvalidEmailError);
-          return '';
-        }
-        return null;
+        return context.read<SignUpChangeNotifier>().validateEmail(value!, context);
       },
       decoration: InputDecoration(
-        labelText: AppLocalizations.of(context).email,//"Email",
-        hintText: AppLocalizations.of(context).pleaseEnterEmail,//"Enter your email",
+        labelText: AppLocalizations.of(context)!.email,//"Email",
+        hintText: AppLocalizations.of(context)!.pleaseEnterEmail,//"Enter your email",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

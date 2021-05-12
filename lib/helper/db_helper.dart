@@ -1,5 +1,5 @@
+import 'package:flutter_ddd/common/parameters.dart';
 import 'package:flutter_ddd/domain/result/value/sql/sql.dart';
-import 'package:flutter_ddd/parameters.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -7,14 +7,12 @@ const _dbFile = 'database.db';
 const _dbVersion = DATABASE_VERSION;
 
 class DbHelper {
-  Database _db;
-  Transaction _txn;
+  late Database _db;
+  late Transaction? _txn;
 
-  Future<void> execute(SQL sql){
-    if(sql==null) {
-      return _db.execute('');
-    }
-    return _db.execute(sql.value);
+  // ignore: missing_return
+  Future<void> execute(SQL sql)async{
+      return _db.execute(sql.value);
   }
 
   Future<Database> open() async {
@@ -54,8 +52,8 @@ class DbHelper {
   }
 
   Future<void> dispose() async {
-    await _db?.close();
-    _db = null;
+    await _db.close();
+    // _db = null;
   }
 
   Future<T> transaction<T>(Future<T> Function() f) async {
@@ -63,28 +61,28 @@ class DbHelper {
       _txn = txn;
       return await f();
     }).then((v) {
-      _txn = null;
+      // _txn = null;
       return v;
     });
   }
 
   Future<List<Map<String, dynamic>>> rawQuery(
     String sql, [
-    List<dynamic> arguments,
+    List<dynamic>? arguments,
   ]) async {
     return await (_txn ?? _db).rawQuery(sql, arguments);
   }
 
   Future<int> rawInsert(
     String sql, [
-    List<dynamic> arguments,
+    List<dynamic>? arguments,
   ]) async {
     return await (_txn ?? _db).rawInsert(sql, arguments);
   }
 
   Future<int> rawDelete(
     String sql, [
-    List<dynamic> arguments,
+    List<dynamic>? arguments,
   ]) async {
     return await (_txn ?? _db).rawDelete(sql, arguments);
   }

@@ -28,15 +28,15 @@ const kAnimationDuration = Duration(milliseconds: 200);
 List<Map<String,String>> getSplashData(BuildContext context)=>
   [
     {
-      'text': AppLocalizations.of(context).splashText1,
+      'text': AppLocalizations.of(context)!.splashText1,
       'image': 'assets/images/splash_1.png'
     },
     {
-      'text': AppLocalizations.of(context).splashText2,
+      'text': AppLocalizations.of(context)!.splashText2,
       'image': 'assets/images/splash_2.png'
     },
     {
-      'text': AppLocalizations.of(context).splashText3,
+      'text': AppLocalizations.of(context)!.splashText3,
       'image': 'assets/images/splash_3.png'
     },
   ];

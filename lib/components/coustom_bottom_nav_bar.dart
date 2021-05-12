@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/parameters.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../enums.dart';
-import '../parameters.dart';
+import '../common/enums.dart';
 import '../presentation/page/home/home_screen.dart';
 import '../presentation/page/profile/profile_screen.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({
-    Key key,
-    @required this.selectedMenu,
+    Key? key,
+    required this.selectedMenu,
   }) : super(key: key);
 
   final MenuState selectedMenu;

@@ -16,15 +16,15 @@ class CategoryAppService {
   final CategoryService _service;
 
   CategoryAppService({
-    @required CategoryFactoryBase factory,
-    @required CategoryRepositoryBase repository,
-    @required NoteRepositoryBase noteRepository,
+    required CategoryFactoryBase factory,
+    required CategoryRepositoryBase repository,
+    required NoteRepositoryBase noteRepository,
   })  : _factory = factory,
         _repository = repository,
         _noteRepository = noteRepository,
         _service = CategoryService(repository: repository);
 
-  Future<void> saveCategory({@required String name}) async {
+  Future<void> saveCategory({required String name}) async {
     final category = _factory.create(name: name);
 
     await _repository.transaction<void>(() async {
@@ -40,8 +40,8 @@ class CategoryAppService {
   }
 
   Future<void> updateCategory({
-    @required String id,
-    @required String name,
+    required String id,
+    required String name,
   }) async {
     final targetId = CategoryId(id);
 
@@ -79,7 +79,7 @@ class CategoryAppService {
         );
       }
 
-      if (await _noteRepository.countByCategory(targetId) > 0) {
+      if (await _noteRepository.countByCategory(targetId)> 0) {
         throw RemovalException(code: ExceptionCode.category);
       }
 

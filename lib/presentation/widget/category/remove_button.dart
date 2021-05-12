@@ -4,7 +4,7 @@ import 'package:flutter_ddd/presentation/widget/category/remove_dialog.dart';
 class CategoryRemoveButton extends StatelessWidget {
   final String categoryId;
 
-  const CategoryRemoveButton({@required this.categoryId});
+  const CategoryRemoveButton({required this.categoryId});
 
   @override
   Widget build(BuildContext context) {

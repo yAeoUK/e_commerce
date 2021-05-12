@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/size_config.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../size_config.dart';
 import 'section_title.dart';
 
 class SpecialOffers extends StatelessWidget {
   const SpecialOffers({
-    Key key,
+   Key?key,
   }) : super(key: key);
 
   @override
@@ -18,7 +18,7 @@ class SpecialOffers extends StatelessWidget {
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
             //title: "Special for you",
-            title: AppLocalizations.of(context).specialForYou,
+            title: AppLocalizations.of(context)!.specialForYou,
             press: () {},
           ),
         ),
@@ -50,11 +50,11 @@ class SpecialOffers extends StatelessWidget {
 
 class SpecialOfferCard extends StatelessWidget {
   const SpecialOfferCard({
-    Key key,
-    @required this.category,
-    @required this.image,
-    @required this.numOfBrands,
-    @required this.press,
+   Key?key,
+    required this.category,
+    required this.image,
+    required this.numOfBrands,
+    required this.press,
   }) : super(key: key);
 
   final String category, image;
@@ -106,7 +106,7 @@ class SpecialOfferCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        TextSpan(text: '$numOfBrands '+AppLocalizations.of(context).brands)
+                        TextSpan(text: '$numOfBrands '+AppLocalizations.of(context)!.brands)
                       ],
                     ),
                   ),

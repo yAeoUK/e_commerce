@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class InitPage extends StatelessWidget {
   final String appTitle;
 
-  const InitPage({@required this.appTitle});
+  const InitPage({required this.appTitle});
 
   @override
   Widget build(BuildContext context) {

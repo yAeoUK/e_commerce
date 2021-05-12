@@ -7,9 +7,9 @@ class NoteFactory implements NoteFactoryBase {
 
   @override
   Note create({
-    @required NoteTitle title,
-    @required NoteBody body,
-    @required CategoryId categoryId,
+    required NoteTitle title,
+    required NoteBody body,
+    required CategoryId categoryId,
   }) {
     return Note(
       id: NoteId(Uuid().v4()),

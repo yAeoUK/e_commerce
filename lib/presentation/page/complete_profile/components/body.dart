@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/parameters.dart';
+import 'package:flutter_ddd/common/size_config.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../../../parameters.dart';
-import '../../../../size_config.dart';
 import 'complete_profile_form.dart';
 
 class Body extends StatelessWidget {
@@ -17,20 +16,20 @@ class Body extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.03),
-                Text(AppLocalizations.of(context).completeProfile,//"Complete Profile",
+                SizedBox(height: SizeConfig.screenHeight! * 0.03),
+                Text(AppLocalizations.of(context)!.completeProfile,//"Complete Profile",
                   style: headingStyle),
                 Text(
                   //"Complete your details or continue  \nwith social media",
-                  AppLocalizations.of(context).completeDetailsOrSocialMedia,
+                  AppLocalizations.of(context)!.completeDetailsOrSocialMedia,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: SizeConfig.screenHeight * 0.06),
+                SizedBox(height: SizeConfig.screenHeight! * 0.06),
                 CompleteProfileForm(),
                 SizedBox(height: getProportionateScreenHeight(30)),
                 Text(
                   //"By continuing your confirm that you agree \nwith our Term and Condition",
-                  AppLocalizations.of(context).confirmAgreeTermCondition,
+                  AppLocalizations.of(context)!.confirmAgreeTermCondition,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.caption,
                 ),

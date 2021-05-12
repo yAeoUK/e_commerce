@@ -3,7 +3,7 @@
 class UserService {
   //final UserRepositoryBase _repository;
 
-  const UserService(/*{@required UserRepositoryBase repository}*/);
+  const UserService(/*{required UserRepositoryBase repository}*/);
       //: _repository = repository;
 
   // Future<bool> isDuplicated(UserId id) async {

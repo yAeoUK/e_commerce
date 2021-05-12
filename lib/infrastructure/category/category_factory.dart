@@ -6,7 +6,7 @@ class CategoryFactory implements CategoryFactoryBase {
   const CategoryFactory();
 
   @override
-  Category create({@required String name}) {
+  Category create({required String name}) {
     return Category(
       id: CategoryId(Uuid().v4()),
       name: CategoryName(name),

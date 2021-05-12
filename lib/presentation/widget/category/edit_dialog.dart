@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_ddd/common/exception.dart';
 import 'package:flutter_ddd/presentation/widget/error_dialog.dart';
 
-typedef SaveCallback = Future<void> Function({@required String name});
+typedef SaveCallback = Future<void> Function({required String name});
 
 class CategoryEditDialog extends StatelessWidget {
   final BuildContext _context;
@@ -13,11 +13,11 @@ class CategoryEditDialog extends StatelessWidget {
   final TextEditingController _nameController;
 
   CategoryEditDialog({
-    @required BuildContext context,
-    @required this.heading,
-    @required this.buttonLabel,
-    @required this.onSave,
-    String initialName,
+    required BuildContext context,
+    required this.heading,
+    required this.buttonLabel,
+    required this.onSave,
+    String? initialName,
   })  : _context = context,
         _nameController = context.read<TextEditingController>()
           ..text = initialName ?? '';

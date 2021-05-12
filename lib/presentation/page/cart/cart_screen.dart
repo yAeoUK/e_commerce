@@ -22,11 +22,11 @@ class CartScreen extends StatelessWidget {
         children: [
           Text(
             //"Your Cart",
-            AppLocalizations.of(context).yourCart,
+            AppLocalizations.of(context)!.yourCart,
             style: const TextStyle(color: Colors.black),
           ),
           Text(
-            '${demoCarts.length} '+AppLocalizations.of(context).items,
+            '${demoCarts.length} '+AppLocalizations.of(context)!.items,
             style: Theme.of(context).textTheme.caption,
           ),
         ],

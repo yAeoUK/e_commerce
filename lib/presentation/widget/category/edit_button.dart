@@ -6,7 +6,7 @@ import 'package:flutter_ddd/presentation/widget/category/edit_dialog.dart';
 class CategoryEditButton extends StatelessWidget {
   final CategoryDto category;
 
-  const CategoryEditButton({@required this.category});
+  const CategoryEditButton({required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class CategoryEditButton extends StatelessWidget {
         heading: 'Edit category',
         buttonLabel: 'SAVE',
         initialName: category.name,
-        onSave: ({name}) async {
+        onSave: ({required name}) async {
           await context.read<CategoryNotifier>().updateCategory(
                 id: category.id,
                 name: name,

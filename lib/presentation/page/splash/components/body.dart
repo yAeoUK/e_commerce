@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/parameters.dart';
+import 'package:flutter_ddd/common/size_config.dart';
+import 'package:flutter_ddd/presentation/page/splash/results.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../../../components/default_button.dart';
-import '../../../../parameters.dart';
-import '../../../../shared_preferences_helper.dart';
-import '../../../../size_config.dart';
+import '../../../../helper/shared_preferences_helper.dart';
 import '../../sign_in/sign_in_screen.dart';
 import 'splash_content.dart';
 
@@ -33,8 +34,8 @@ class _BodyState extends State<Body> {
                 },
                 itemCount: splashData.length,
                 itemBuilder: (context, index) => SplashContent(
-                  image: splashData[index]['image'],
-                  text: splashData[index]['text'],
+                  image: splashData[index]['image']!,
+                  text: splashData[index]['text']!,
                 ),
               ),
             ),
@@ -55,10 +56,10 @@ class _BodyState extends State<Body> {
                     ),
                     const Spacer(flex: 3),
                     DefaultButton(
-                      text: AppLocalizations.of(context).conTinue, ///"Continue",
+                      text: AppLocalizations.of(context)!.conTinue, ///"Continue",
                       press: () {
                         context.read<SharedPreferencesHelper>().getInstance().setBool(SharedPreferencesHelper.LOAD_SPLASH_SCREEN,false);
-                        Navigator.pushReplacementNamed(context, SignInScreen.routeName);
+                        Navigator.pop(context,SplashResult.Continue);
                       },
                     ),
                     const Spacer(),
@@ -72,7 +73,7 @@ class _BodyState extends State<Body> {
     );
   }
 
-  AnimatedContainer buildDot({int index}) {
+  AnimatedContainer buildDot({required int index}) {
     return AnimatedContainer(
       duration: kAnimationDuration,
       margin: const EdgeInsets.only(right: 5),

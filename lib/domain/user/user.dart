@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_ddd/domain/user/value/image/image.dart';
+import 'package:flutter_ddd/domain/user/value/image/imageConverter.dart';
 import 'package:flutter_ddd/domain/user/value/password/password.dart';
 import 'package:flutter_ddd/domain/user/value/password/passwordConverter.dart';
 import 'package:flutter_ddd/domain/user/value/userId/UserId.dart';
@@ -13,13 +15,15 @@ part 'user.g.dart';
 @UserIdConverter()
 @UsernameConverter()
 @PasswordConverter()
+@ImageConverter()
 class User {
   
   final UserId id;
   final Username username;
-  final Password password;
+  final Image image;
+  //final Password password;
 
-  User({this.id,this.username,this.password});
+  User({required this.id,required this.username,required this.image/*,this.password*/});
 
   //UserId get id => _id;
 
@@ -30,13 +34,14 @@ class User {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => runtimeType.hashCode ^ id.hashCode;
+  int get hashCode => runtimeType.hashCode ^ id.hashCode^image.hashCode;
 
   // void changeName(CategoryName newName) {
   //   _name = newName;
   // }
 
-  factory User.fromJson(String jso) => _$UserFromJson(json.decode(jso) as Map<String,dynamic>);
-  String toJson() => _$UserToJson(this).toString();
+  factory User.fromJson(Map<String,dynamic> jso) =>_$UserFromJson(jso);
+
+  Map<String,dynamic> toJson() => _$UserToJson(this);
 
 }

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/parameters.dart';
+import 'package:flutter_ddd/common/size_config.dart';
 import '../../../../domain/cart/Cart.dart';
-
-import '../../../../parameters.dart';
-import '../../../../size_config.dart';
 
 class CartCard extends StatelessWidget {
   const CartCard({
-    Key key,
-    @required this.cart,
+    Key? key,
+    required this.cart,
   }) : super(key: key);
 
   final Cart cart;

@@ -13,5 +13,5 @@ class NoteDto {
       : id = source.id.value,
         title = source.title.value,
         body = source.body.value,
-        categoryId = source.categoryId.value;
+        categoryId = source.categoryId!.value;
 }

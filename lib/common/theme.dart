@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'parameters.dart';
+import 'package:flutter_ddd/common/parameters.dart';
 
 ThemeData theme() {
   return ThemeData(

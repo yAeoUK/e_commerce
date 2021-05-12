@@ -9,8 +9,8 @@ class CategoryRemoveDialog extends StatelessWidget {
   final String categoryId;
 
   const CategoryRemoveDialog({
-    @required BuildContext context,
-    @required this.categoryId,
+    required BuildContext context,
+    required this.categoryId,
   }) : _context = context;
 
   @override

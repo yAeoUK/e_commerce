@@ -1,13 +1,13 @@
+import 'package:flutter_ddd/helper/db_helper.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter_ddd/domain/note/note_repository_base.dart';
-import 'package:flutter_ddd/infrastructure/db_helper.dart';
 
 export 'package:flutter_ddd/domain/note/note_repository_base.dart';
 
 class NoteRepository implements NoteRepositoryBase {
   final DbHelper _dbHelper;
 
-  const NoteRepository({@required DbHelper dbHelper}) : _dbHelper = dbHelper;
+  const NoteRepository({required DbHelper dbHelper}) : _dbHelper = dbHelper;
 
   Note toNote(Map<String, dynamic> data) {
     final id = data['id'].toString();
@@ -19,9 +19,9 @@ class NoteRepository implements NoteRepositoryBase {
       id: NoteId(id),
       title: NoteTitle(title),
       body: NoteBody(body),
-      categoryId: categoryId == null || categoryId.isEmpty
+      categoryId: categoryId.isEmpty
           ? null
-          : CategoryId(categoryId),
+          : CategoryId(categoryId)
     );
   }
 
@@ -31,7 +31,7 @@ class NoteRepository implements NoteRepositoryBase {
   }
 
   @override
-  Future<Note> find(NoteId id) async {
+  Future<Note?> find(NoteId id) async {
     final list = await _dbHelper.rawQuery(
       'SELECT * FROM notes WHERE id = ?',
       <String>[id.value],
@@ -41,7 +41,7 @@ class NoteRepository implements NoteRepositoryBase {
   }
 
   @override
-  Future<Note> findByTitle(NoteTitle title) async {
+  Future<Note?> findByTitle(NoteTitle title) async {
     final list = await _dbHelper.rawQuery(
       'SELECT * FROM notes WHERE title = ?',
       <String>[title.value],
@@ -72,7 +72,7 @@ class NoteRepository implements NoteRepositoryBase {
     );
 
     final row = Map<String, int>.from(list[0]);
-    return row['cnt'];
+    return row['cnt']!;
   }
 
   @override
@@ -86,7 +86,7 @@ class NoteRepository implements NoteRepositoryBase {
         note.id.value,
         note.title.value,
         note.body.value,
-        note.categoryId?.value,
+        note.categoryId!.value,
       ],
     );
   }

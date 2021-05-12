@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/parameters.dart';
+import 'package:flutter_ddd/common/size_config.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../components/default_button.dart';
-import '../../../../parameters.dart';
-import '../../../../size_config.dart';
 
 class OtpForm extends StatefulWidget {
   const OtpForm({
-    Key key,
+   Key?key,
   }) : super(key: key);
 
   @override
@@ -15,9 +15,9 @@ class OtpForm extends StatefulWidget {
 }
 
 class _OtpFormState extends State<OtpForm> {
-  FocusNode pin2FocusNode;
-  FocusNode pin3FocusNode;
-  FocusNode pin4FocusNode;
+  late FocusNode pin2FocusNode;
+  late FocusNode pin3FocusNode;
+  late FocusNode pin4FocusNode;
 
   @override
   void initState() {
@@ -46,7 +46,7 @@ class _OtpFormState extends State<OtpForm> {
     return Form(
       child: Column(
         children: [
-          SizedBox(height: SizeConfig.screenHeight * 0.15),
+          SizedBox(height: SizeConfig.screenHeight!* 0.15),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -107,9 +107,9 @@ class _OtpFormState extends State<OtpForm> {
               ),
             ],
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.15),
+          SizedBox(height: SizeConfig.screenHeight!* 0.15),
           DefaultButton(
-            text: AppLocalizations.of(context).conTinue,//"Continue",
+            text: AppLocalizations.of(context)!.conTinue,//"Continue",
             press: () {},
           )
         ],

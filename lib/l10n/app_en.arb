@@ -26,6 +26,7 @@
   "confirmAgreeTermCondition":"By continuing your confirm that you agree \nwith our Term and Condition",
   "passwordsDontMatch":"Passwords don't match",
   "confirmPassword":"Confirm password",
+  "pleaseConfirmPassword":"Please confirm your password",
   "reenterYourPassword":"Re-enter your password",
   "enterEmailToRecoverPassword":"Please enter your email and we will send \nyou a link to return to your account",
   "loginSuccess":"Login success",

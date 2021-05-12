@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ddd/common/parameters.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../../../parameters.dart';
 
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({
-    Key key,
-    @required this.text,
-    @required this.icon,
-    this.press,
+   Key?key,
+    required this.text,
+    required this.icon,
+    required this.press,
   }) : super(key: key);
 
   final String text, icon;
